@@ -1,0 +1,58 @@
+---
+title: "Primer reporte en R Markdown"
+author: "Anelisse Palacios Ramírez 136082"
+output: html_document
+---
+
+### Introducción al formato R Markdown
+
+Ejemplo Elaborado en `r date()`
+
+```{r Paquetes}
+library(ggmap)
+```
+
+````{r GenerarDatos, message=FALSE}
+
+clave.unica <- rep("136082",3)
+#1: Si es mixto
+es.mixto <- c(universidad = 1, preparatoria = 1, secundaria = 1)
+
+universidad <- geocode("ITAM, 01080")
+preparatoria <- geocode("CUM, Nicolás San Juan, 03020")
+secundaria <- geocode("Avenida Popocatépetl 545")
+
+educacion <- rbind(universidad, preparatoria, secundaria)
+educacion <- cbind(clave.unica, es.mixto, educacion)
+```
+
+```{r ObtenciónCoordenadasYMapas, warning=FALSE, message=FALSE}
+limites <- make_bbox(lon, lat, educacion, f = 0.7)
+mapa <- get_map(location = limites,
+                 maptype = "roadmap",
+                 source = "google")
+```
+
+```{r GraficarLocalizaciones, echo=FALSE}
+ggmap(mapa) +
+geom_point(data = educacion,
+           aes(x = lon, y = lat),
+           size = 4, alpha = 0.6, colour = "red")
+```
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
