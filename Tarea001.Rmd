@@ -1,10 +1,10 @@
 ---
 title: "Primer reporte en R Markdown"
-author: "Anelisse Palacios Ramírez 136082"
+author: "Anelisse Palacios Ram??rez 136082"
 output: html_document
 ---
 
-### Introducción al formato R Markdown
+### Introducci??n al formato R Markdown
 
 Ejemplo Elaborado en `r date()`
 
@@ -18,19 +18,19 @@ clave.unica <- rep("136082",3)
 #1: Si es mixto
 es.mixto <- c(universidad = 1, preparatoria = 1, secundaria = 1)
 
-universidad <- geocode("ITAM, 01080")
-preparatoria <- geocode("CUM, Nicolás San Juan, 03020")
-secundaria <- geocode("Avenida Popocatépetl 545")
+universidad <- geocode("ITAM")
+preparatoria <- geocode("03020 Nicolas San Juan")
+secundaria <- geocode("03310 Eje 8 Sur 545")
 
 educacion <- rbind(universidad, preparatoria, secundaria)
 educacion <- cbind(clave.unica, es.mixto, educacion)
 ```
 
-```{r ObtenciónCoordenadasYMapas, warning=FALSE, message=FALSE}
+```{r Obtenci??nCoordenadasYMapas, warning=FALSE, message=FALSE}
 limites <- make_bbox(lon, lat, educacion, f = 0.7)
 mapa <- get_map(location = limites,
-                 maptype = "roadmap",
-                 source = "google")
+                maptype = "roadmap",
+                source = "google")
 ```
 
 ```{r GraficarLocalizaciones, echo=FALSE}
